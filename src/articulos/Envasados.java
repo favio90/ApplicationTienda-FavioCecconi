@@ -5,22 +5,21 @@ import abstracciones.Productos;
 public class Envasados extends Productos {
 
 	private EnumEnvasados tipoDeEnvase;
-	private boolean importado;
 	private static final String prefijo = "AB";
 	private static int ultimoNumero = 0;
 
 	
 	
 	
-	
-	
 	public Envasados( String descripcion, int stock, float precioUnidad, float costoUnidad,
 			 EnumEnvasados tipoDeEnvase, boolean importado) {
 
-		super( descripcion, stock, precioUnidad, costoUnidad);
+		super( descripcion, stock, precioUnidad, costoUnidad, importado);
 		this.tipoDeEnvase = tipoDeEnvase;
-		this.importado = importado;
+		 setDisponible(true);
 		this.setId(generarID());
+ //   System.out.println("este es el constructor . boolean da " + this.ge);
+	
 	}
 
 	
@@ -39,25 +38,27 @@ public class Envasados extends Productos {
 
 	public void setTipoDeEnvase(EnumEnvasados tipoDeEnvase) {
 		this.tipoDeEnvase = tipoDeEnvase;
+
 	}
 
-	public boolean isImportado() {
-		agregarImpuestoImportado();
-		return importado;
-	}
 
-	private void agregarImpuestoImportado() {
-		float nuevoPrecio = this.getPrecioUnidad();
-		nuevoPrecio = (float) (nuevoPrecio * 1.10);
-		this.setPrecioUnidad(nuevoPrecio);
-	}
 
-	public void setImportado(boolean importado) {
-		this.importado = importado;
-	}
+//	public boolean esImportado() {
+//	
+//	
+//		
+//	}
+	
+//	private void agregarImpuestoImportado() {
+//		float nuevoPrecio = this.getPrecioUnidad();
+//		nuevoPrecio = (float) (nuevoPrecio * 1.10);
+//		this.setPrecioUnidad(nuevoPrecio);
+//	}
+
+
 
 	public void setId(String id) {
-
+		this.id = id;
 	}
 
 }
