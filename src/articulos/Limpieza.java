@@ -5,20 +5,19 @@ import abstracciones.Productos;
 public class Limpieza extends Productos {
 
 	
-	private boolean importado;
 	private static final String prefijo = "AZ";
 	private static int ultimoNumero = 0;
 	private EnumLimpieza enumLimpieza;
 	
 	
+	
 
 	public Limpieza( String descripcion, int stock, float precioUnidad, float costoUnidad,
 			 boolean importado, EnumLimpieza enumLimpieza) {
-
-		super( descripcion, stock, precioUnidad, costoUnidad);
-		this.importado = importado;
+		super( descripcion, stock, precioUnidad, costoUnidad, importado);
 		this.setId(generarID());
 	    this.enumLimpieza = enumLimpieza;
+	    setDisponible(true);
 	}
 
 	
@@ -40,10 +39,7 @@ public class Limpieza extends Productos {
 
 
 
-	public boolean isImportado() {
-		agregarImpuestoImportado();
-		return importado;
-	}
+
 
 	private void agregarImpuestoImportado() {
 		float nuevoPrecio = this.getPrecioUnidad();
@@ -51,12 +47,11 @@ public class Limpieza extends Productos {
 		this.setPrecioUnidad(nuevoPrecio);
 	}
 
-	public void setImportado(boolean importado) {
-		this.importado = importado;
-	}
+
 
 	public void setId(String id) {
 
+		this.id = id;
 	}
 
 	

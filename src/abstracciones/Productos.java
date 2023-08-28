@@ -2,29 +2,29 @@ package abstracciones;
 
 public abstract class Productos {
 
-	private String id;
+	protected String id;
 	private String descripcion;
 	private int stock;
 	private float precioUnidad;
 	private float costoUnidad;
 	private boolean disponible;
+	private boolean importado;
+	
+	
+	
+	
+	
+	
+	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-public Productos(String descripcion, int stock, float precioUnidad, float costoUnidad) {
+
+public Productos(String descripcion, int stock, float precioUnidad, float costoUnidad, boolean importado) {
 
 		this.descripcion = descripcion;
 		this.stock = stock;
 		this.precioUnidad = precioUnidad;
 		this.costoUnidad = costoUnidad;
-
+        this.importado = importado;
 	}
 
 
@@ -33,6 +33,19 @@ public Productos(String descripcion, int stock, float precioUnidad, float costoU
 	public abstract void setId(String id);
 
 
+	
+	
+	public boolean isImportado() {
+		return importado;
+	}
+
+
+
+	public void setImportado(boolean importado) {
+		this.importado = importado;
+	}
+
+	
 	
 	
 //	Setters comunes 
