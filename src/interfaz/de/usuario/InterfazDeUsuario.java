@@ -179,7 +179,7 @@ Tienda.listarProductosConUtilidadesInferiores(porcentaje);
     		                          comestible.getStock(), comestible.getFechaVencimiento()) ; 
     comestible.partidasQueue.add(partida);
     Tienda.cargaPrimera(comestible);
-	Tienda.setDescuento(comestible, partida);
+	Tienda.setDescuento(comestible);
 		}
 
 
@@ -425,7 +425,9 @@ Tienda.listarProductosConUtilidadesInferiores(porcentaje);
 	nuevaPartida.setFechaVencimiento();
 	comestible.partidasQueue.add(nuevaPartida);
 	Tienda.aumentarStock(comestible, cantidad, costo, precioVenta);
-    Tienda.actualizarDescuentos();
+    Tienda.setDescuento(comestible);
+
+	
 	}
 
 

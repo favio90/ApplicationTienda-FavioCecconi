@@ -21,9 +21,17 @@ public class EnvasadosComestibles extends Envasados implements VencimientoYCalor
 public 	PriorityQueue<PartidasComestibles> partidasQueue =  new PriorityQueue<>(Comparator.comparing(PartidasComestibles::getFechaVencimiento));
 	private short calorias;
 	private LocalDate fechaVencimiento;
-	private TiposDescuentos tipoDescuento = TiposDescuentos.NINGUNO;
+	public TiposDescuentos tipoDescuento = TiposDescuentos.NINGUNO;
+	public float descuento;
 	
-	
+	public float getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(float descuento) {
+		this.descuento = descuento;
+	}
+
 	public EnvasadosComestibles(String descripcion, int stock, float precioUnidad, float costoUnidad,
 			EnumEnvasados tipoDeEnvase, boolean importado) {
 		super(descripcion, stock, precioUnidad, costoUnidad, tipoDeEnvase, importado);
