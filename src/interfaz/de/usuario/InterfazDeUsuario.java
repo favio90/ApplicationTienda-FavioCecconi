@@ -168,7 +168,7 @@ Tienda.listarProductosConUtilidadesInferiores(porcentaje);
 
 	
 	
-		private void cargarComestible(int cantidad, float costo, float precioVenta, int calorias, float costoTotal ) {
+	private void cargarComestible(int cantidad, float costo, float precioVenta, int calorias, float costoTotal ) {
 	
 		
 	EnvasadosComestibles comestible = new EnvasadosComestibles ( descripcion,  cantidad,  precioVenta,  costo,
@@ -177,8 +177,8 @@ Tienda.listarProductosConUtilidadesInferiores(porcentaje);
 	comestible.setFechaVencimiento();
     PartidasComestibles partida = new PartidasComestibles (comestible.getId(), comestible.getDescripcion(), 
     		                          comestible.getStock(), comestible.getFechaVencimiento()) ; 
-    Tienda.cargarVencimiento(partida);
-	Tienda.cargaPrimera(comestible);
+    comestible.partidasQueue.add(partida);
+    Tienda.cargaPrimera(comestible);
 	Tienda.setDescuento(comestible, partida);
 		}
 
@@ -363,6 +363,7 @@ Tienda.listarProductosConUtilidadesInferiores(porcentaje);
 				return;
 			}
 	      Tienda.venderProducto(producto, unidades);	
+	      return;
 		}else {
 			menu();
 		}
@@ -422,7 +423,7 @@ Tienda.listarProductosConUtilidadesInferiores(porcentaje);
 	PartidasComestibles nuevaPartida = new PartidasComestibles(comestible.getId(),
     comestible.getDescripcion(), cantidad);
 	nuevaPartida.setFechaVencimiento();
-	Tienda.cargarVencimiento(nuevaPartida);
+	comestible.partidasQueue.add(nuevaPartida);
 	Tienda.aumentarStock(comestible, cantidad, costo, precioVenta);
     Tienda.actualizarDescuentos();
 	}

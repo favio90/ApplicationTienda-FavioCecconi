@@ -63,7 +63,7 @@ public int getStock() {
 
 
 public void setStock(int stock) {
-	stock = stock;
+	this.stock = stock;
 }
 
 

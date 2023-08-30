@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
 
 import abstracciones.Descuento;
 import abstracciones.Productos;
@@ -20,8 +21,6 @@ import variantes.articulos.PartidasComestibles;
 public class Tienda implements Descuento {
 
 	String codigo;
-
-
 
 	static Map<String, Productos> productosEnStock = new HashMap<>();
 	public static Map<Integer, PartidasComestibles> partidasConVencimiento = new HashMap<>();
@@ -141,48 +140,46 @@ public class Tienda implements Descuento {
 			System.out.println("Costo por Unidad: " + producto.getCostoUnidad());
 			System.out.println("Está disponible?: " + producto.isDisponible());
 			System.out.println("Es Importado? : " + producto.isImportado());
-			if(producto instanceof Limpieza) {
-		Limpieza	limpieza =(Limpieza)producto;
-		System.out.println("Es un artículo de limpieza");
-		System.out.println("del tipo:  " + limpieza.getEnumLimpieza());
+			if (producto instanceof Limpieza) {
+				Limpieza limpieza = (Limpieza) producto;
+				System.out.println("Es un artículo de limpieza");
+				System.out.println("del tipo:  " + limpieza.getEnumLimpieza());
 			}
-			if(producto instanceof Bebidas) {
-				Bebidas	bebida =(Bebidas)producto;
+			if (producto instanceof Bebidas) {
+				Bebidas bebida = (Bebidas) producto;
 				System.out.println("Es una bebida");
 				System.out.println("Es alcoholica? :  " + bebida.isAlcoholica());
-			    System.out.println("que graduación tiene? " + bebida.getGraduacionAlcoholica());		
+				System.out.println("que graduación tiene? " + bebida.getGraduacionAlcoholica());
 			}
-			
-			if(producto instanceof Envasados) {
-				Envasados	envase =(Envasados)producto;
+
+			if (producto instanceof Envasados) {
+				Envasados envase = (Envasados) producto;
 				System.out.println("Es un Envasado");
 				System.out.println("El envase es de tipo :  " + envase.getTipoDeEnvase());
-					
+
 			}
-			
+
 			if (producto instanceof EnvasadosComestibles) {
 				EnvasadosComestibles comestible = (EnvasadosComestibles) producto;
-				System.out.println( "Es un comestible");
+				System.out.println("Es un comestible");
 				System.out.println("El tipo de envase es: " + comestible.getTipoDeEnvase());
 				System.out.println("Las calorías que tiene son: " + comestible.getCalorias());
 				System.out.println("para averiguar las distintas fechas de vencimiento ingresá 4 en el menú");
 			}
-			
-			
+
 			System.out.println("---------------------------------------------------------");
 
 		}
 	}
-	
-	
+
 	public static void mostrarProductosSoloStock() {
 
 		for (Map.Entry<String, Productos> entry : productosEnStock.entrySet()) {
-		
+
 			String idProducto = entry.getKey();
 			Productos producto = entry.getValue();
-		if(producto.isDisponible() == false)
-			continue;
+			if (producto.isDisponible() == false)
+				continue;
 			System.out.println("ID: " + idProducto);
 			System.out.println("Descripción: " + producto.getDescripcion());
 			System.out.println("Stock: " + producto.getStock());
@@ -190,33 +187,32 @@ public class Tienda implements Descuento {
 			System.out.println("Costo por Unidad: " + producto.getCostoUnidad());
 			System.out.println("Está disponible?: " + producto.isDisponible());
 			System.out.println("Es Importado? : " + producto.isImportado());
-			if(producto instanceof Limpieza) {
-		Limpieza	limpieza =(Limpieza)producto;
-		System.out.println("Es un artículo de limpieza");
-		System.out.println("del tipo:  " + limpieza.getEnumLimpieza());
+			if (producto instanceof Limpieza) {
+				Limpieza limpieza = (Limpieza) producto;
+				System.out.println("Es un artículo de limpieza");
+				System.out.println("del tipo:  " + limpieza.getEnumLimpieza());
 			}
-			if(producto instanceof Bebidas) {
-				Bebidas	bebida =(Bebidas)producto;
+			if (producto instanceof Bebidas) {
+				Bebidas bebida = (Bebidas) producto;
 				System.out.println("Es una bebida");
 				System.out.println("Es alcoholica? :  " + bebida.isAlcoholica());
-			    System.out.println("que graduación tiene? " + bebida.getGraduacionAlcoholica());		
+				System.out.println("que graduación tiene? " + bebida.getGraduacionAlcoholica());
 			}
-			
-			if(producto instanceof Envasados) {
-				Envasados	envase =(Envasados)producto;
+
+			if (producto instanceof Envasados) {
+				Envasados envase = (Envasados) producto;
 				System.out.println("Es un Envasado");
 				System.out.println("El envase es de tipo :  " + envase.getTipoDeEnvase());
-					
+
 			}
-			
+
 			if (producto instanceof EnvasadosComestibles) {
 				EnvasadosComestibles comestible = (EnvasadosComestibles) producto;
-				System.out.println( "Es un comestible");
+				System.out.println("Es un comestible");
 				System.out.println("El tipo de envase es: " + comestible.getTipoDeEnvase());
 				System.out.println("para averiguar las distintas fechas de vencimiento ingresá 4 en el menú");
 			}
-			
-			
+
 			System.out.println("---------------------------------------------------------");
 
 		}
@@ -270,29 +266,35 @@ public class Tienda implements Descuento {
 		saldoCaja = saldoCaja - costoTotal;
 		System.out.println("se ha aumentado el STOCK del producto seleccionado");
 		System.out.println("Ahora tiene " + producto.getStock() + "   unidades");
-
 	}
 
 	public static void mostrarVencimientos() {
 
-		for (Map.Entry<Integer, PartidasComestibles> entry : partidasConVencimiento.entrySet()) {
-			Integer numero = entry.getKey();
-			PartidasComestibles producto = entry.getValue();
-			System.out.println("ID: " + producto.getId());
-			System.out.println("Descripción: " + producto.getDescripcion());
-			System.out.println("Stock: " + producto.getStock());
-			System.out.println("Esta partida Vence el +  " + producto.getFechaVencimiento());
+		for (Productos producto : productosEnStock.values()) {
+			if (producto instanceof EnvasadosComestibles) {
+				EnvasadosComestibles envasadosComestibles = (EnvasadosComestibles) producto;
 
-			System.out.println("---------------------------------------------------------");
-
+			
+				for (PartidasComestibles partida : envasadosComestibles.partidasQueue) {
+					System.out.println("ID: " + partida.getId());
+					System.out.println("Descripción: " + partida.getDescripcion());
+					System.out.println("Stock: " + partida.getStock());
+					System.out.println("Fecha de Vencimiento: " + partida.getFechaVencimiento());
+					System.out.println("-------------------");
+				}
+			}
 		}
-
 	}
 
-	public static void cargarVencimiento(PartidasComestibles comestible) {
-		partidasConVencimiento.put(numeroDePartidasVencimiento, comestible);
-		numeroDePartidasVencimiento++;
-	}
+//		for (Map.Entry<Integer, PartidasComestibles> entry : partidasConVencimiento.entrySet()) {
+//			Integer numero = entry.getKey();
+//			PartidasComestibles producto = entry.getValue();
+//			System.out.println("ID: " + producto.getId());
+//			System.out.println("Descripción: " + producto.getDescripcion());
+//			System.out.println("Stock: " + producto.getStock());
+//			System.out.println("Esta partida Vence el +  " + producto.getFechaVencimiento());
+//
+//			System.out.println("---------------------------------------------------------");
 
 	public static void venderProducto(Productos producto, int unidades) {
 
@@ -329,63 +331,110 @@ public class Tienda implements Descuento {
 		float ganancia = stock * producto.getPrecioUnidad();
 		saldoCaja = saldoCaja + ganancia;
 		maximoStock = maximoStock - stock;
-	
 	}
 
 	
-	//TODO ANDA MAL ARREGLAR
-	public static void venderProductoVencimiento(EnvasadosComestibles producto, int unidades) {
+	
+	
+	
+	
+	public static void venderProductoVencimiento(Productos envasadosComestibles, int unidadesAVender) {
+		 EnvasadosComestibles envasados = (EnvasadosComestibles) envasadosComestibles;
+		PriorityQueue<PartidasComestibles> partidasQueue = envasados.partidasQueue;
 
-		PartidasComestibles productoPorVencer = vencimientoProximo(producto);
-		float ganancia = unidades * producto.getPrecioUnidad();
+  
+        System.out.println(unidadesAVender);
+        
+        while (unidadesAVender > 0 && !partidasQueue.isEmpty()) {
 
-		if (productoPorVencer.getStock() == unidades && producto.getStock() == unidades) {
+        	PartidasComestibles partida = partidasQueue.poll(); // Elimina y obtiene la partida más cercana
+            int stockPartida = partida.getStock();
+   
+            if (stockPartida >= unidadesAVender) {
+                envasadosComestibles.setStock(envasadosComestibles.getStock()-unidadesAVender);
+            	saldoCaja += (unidadesAVender * envasadosComestibles.getPrecioUnidad());
+                maximoStock += unidadesAVender;
+                partida.setStock(stockPartida - unidadesAVender);
+                unidadesAVender = 0;
+   
+            } else {
+            	saldoCaja += (unidadesAVender * envasadosComestibles.getPrecioUnidad());
+                maximoStock += unidadesAVender;
+            	envasadosComestibles.setStock(envasadosComestibles.getStock()-stockPartida);
+            	partida.setStock(0);
+                unidadesAVender -= stockPartida;
+            }
 
-			ventaExitosaVencimiento(producto, unidades, productoPorVencer);
-			partidasConVencimiento.remove(claveParaEliminar);
-			// arreglar la linea siguiente. está mal. no supera stock iguala al stock.
-			ventaSuperaStock(producto, producto.getStock());
-		}
+            if (partida.getStock() > 0) {
+             
+            	partidasQueue.offer(partida); // Reinsertar la partida si aún tiene stock
+           System.out.println(partida.getStock());
+            }
+        }
 
-		if (productoPorVencer.getStock() == unidades && producto.getStock() > unidades) {
-			saldoCaja = saldoCaja + ganancia;
-			maximoStock = maximoStock + unidades;
-			ventaExitosaVencimiento(producto, unidades, productoPorVencer);
-			partidasConVencimiento.remove(claveParaEliminar);
-			System.out.println("Se vendió una partida entera de vencimientos");
-			System.out.println("el programa revisará si es necesario actualizar descuentos");
-			setDescuento(producto, productoPorVencer);
-		}
+        // Limpiar partidas con stock cero
+        partidasQueue.removeIf(partida -> partida.getStock() == 0);
+    }
 
-		if (productoPorVencer.getStock() > unidades) {
-
-			saldoCaja = saldoCaja + ganancia;
-			maximoStock = maximoStock + unidades;
-			ventaExitosaVencimiento(producto, unidades, productoPorVencer);
-		}
-
-		// falta hacer el de unidades mayor que producto. no confiar en GANANCIA para
-		// este caso. hacerlo de nuevo.
-
-		if (productoPorVencer.getStock() < unidades && producto.getStock() > unidades) {
-
-			if (unidades < 0)
-				System.out.println("hay error quedó en negativo");
-
-			System.out.println("ENTRO ACÁ");
-			int partidaStockEliminado = productoPorVencer.getStock();
-
-			unidades = unidades - partidaStockEliminado;
-			System.out.println("Se vendieron " + unidades + "unidades de la partida de vencimiento mas próxima");
-			partidasConVencimiento.remove(claveParaEliminar);
-			ganancia = unidades * producto.getPrecioUnidad();
-			producto.setStock(producto.getStock() - unidades);
-			saldoCaja = saldoCaja + ganancia;
-			maximoStock = maximoStock + unidades;
-			venderProductoVencimiento(producto, unidades);
-		}
-
-	}
+	
+	
+	
+	
+	
+	
+	// TODO ANDA MAL ARREGLAR
+//	public static void venderProductoVencimiento(EnvasadosComestibles producto, int unidades) {
+//
+//		PartidasComestibles productoPorVencer = vencimientoProximo(producto);
+//		float ganancia = unidades * producto.getPrecioUnidad();
+//
+//		if (productoPorVencer.getStock() == unidades && producto.getStock() == unidades) {
+//
+//			ventaExitosaVencimiento(producto, unidades, productoPorVencer);
+//			partidasConVencimiento.remove(claveParaEliminar);
+//			// arreglar la linea siguiente. está mal. no supera stock iguala al stock.
+//			ventaSuperaStock(producto, producto.getStock());
+//		}
+//
+//		if (productoPorVencer.getStock() == unidades && producto.getStock() > unidades) {
+//			saldoCaja = saldoCaja + ganancia;
+//			maximoStock = maximoStock + unidades;
+//			ventaExitosaVencimiento(producto, unidades, productoPorVencer);
+//			partidasConVencimiento.remove(claveParaEliminar);
+//			System.out.println("Se vendió una partida entera de vencimientos");
+//			System.out.println("el programa revisará si es necesario actualizar descuentos");
+//			setDescuento(producto, productoPorVencer);
+//		}
+//
+//		if (productoPorVencer.getStock() > unidades) {
+//
+//			saldoCaja = saldoCaja + ganancia;
+//			maximoStock = maximoStock + unidades;
+//			ventaExitosaVencimiento(producto, unidades, productoPorVencer);
+//		}
+//
+//		// falta hacer el de unidades mayor que producto. no confiar en GANANCIA para
+//		// este caso. hacerlo de nuevo.
+//
+//		if (productoPorVencer.getStock() < unidades && producto.getStock() > unidades) {
+//
+//			if (unidades < 0)
+//				System.out.println("hay error quedó en negativo");
+//
+//			System.out.println("ENTRO ACÁ");
+//			int partidaStockEliminado = productoPorVencer.getStock();
+//
+//			unidades = unidades - partidaStockEliminado;
+//			System.out.println("Se vendieron " + unidades + "unidades de la partida de vencimiento mas próxima");
+//			partidasConVencimiento.remove(claveParaEliminar);
+//			ganancia = unidades * producto.getPrecioUnidad();
+//			producto.setStock(producto.getStock() - unidades);
+//			saldoCaja = saldoCaja + ganancia;
+//			maximoStock = maximoStock + unidades;
+//			venderProductoVencimiento(producto, unidades);
+//		}
+//
+//	}
 
 	private static void ventaExitosaVencimiento(EnvasadosComestibles producto, int unidades,
 			PartidasComestibles productoPorVencer) {
@@ -400,10 +449,10 @@ public class Tienda implements Descuento {
 		System.out.println("el nuevo stock del producto es: " + producto.getStock());
 		System.out.println("el programa revisará si es necesario actualizar descuentos");
 		setDescuento(producto, productoPorVencer);
-
 	}
 
 	public static PartidasComestibles vencimientoProximo(EnvasadosComestibles productoAVender) {
+
 		LocalDate fechaActual = LocalDate.now();
 		PartidasComestibles productoMasProximo = null;
 
@@ -434,8 +483,6 @@ public class Tienda implements Descuento {
 		return 0;
 	}
 
-	
-	
 	// TODO ANDA MAL HAY QUE ARREGLAR
 	public static void setDescuento(EnvasadosComestibles producto, PartidasComestibles partida) {
 
@@ -476,74 +523,60 @@ public class Tienda implements Descuento {
 
 	}
 
-	
-	
 	// TODO NO ANDA HAY QUE ARREGLAR
 	public static void actualizarDescuentos() {
-	    for (PartidasComestibles partida : partidasConVencimiento.values()) {
-	        String productoId = partida.getId();  
-	        EnvasadosComestibles producto = (EnvasadosComestibles) productosEnStock.get(productoId);
-	        
-	        if (producto != null) {
-	            LocalDate fechaHoy = LocalDate.now();
-	            LocalDate fechaVencimiento = partida.getFechaVencimiento();
-	            long diasRestantes = ChronoUnit.DAYS.between(fechaHoy, fechaVencimiento);
-                producto.setTiposDescuento(TiposDescuentos.NINGUNO);
-	            if (diasRestantes <= 15 ) { //creo que está mal la condicion habría que agregar q no de perdida
-	                producto.setTiposDescuento(TiposDescuentos.DIEZ);
-	            	float precioConDescuento = (float) (producto.getPrecioUnidad() * 0.9); // Descuento del 10%
-	                if (precioConDescuento >= producto.getCostoUnidad()) {
-	                    producto.setPrecioUnidad(precioConDescuento);
-	                    System.out.println("Se aplicó un descuento del 10% al producto " + producto.getId());
-	                    System.out.println("El precio ahora es de: " + producto.getPrecioUnidad());
-	                } else {
-	                    System.out.println("No se aplicó el descuento al producto " + producto.getId() + "   "  + 
-	                producto.getDescripcion() +  " debido a que el precio con descuento daría pérdida.");
-	                }
-	            } else if (diasRestantes <= 30) {
-	                if(producto.getTiposDescuentos() == TiposDescuentos.DIEZ)
-	                	continue;
-	            	float precioConDescuento = (float) (producto.getPrecioUnidad() * 0.95); // Descuento del 5%
-	                if (precioConDescuento >= producto.getCostoUnidad()) {
-	                    producto.setPrecioUnidad(precioConDescuento);
-	                    System.out.println("Se aplicó un descuento del 5% al producto " + producto.getId());
-	                    System.out.println("El precio ahora es de: " + producto.getPrecioUnidad());
-	                } else {
-	                    System.out.println("No se aplicó el descuento al producto " + producto.getId() +
-	                            " debido a que el precio con descuento daría pérdida.");
-	                }
-	            }
-	        }
-	    }
+		for (PartidasComestibles partida : partidasConVencimiento.values()) {
+			String productoId = partida.getId();
+			EnvasadosComestibles producto = (EnvasadosComestibles) productosEnStock.get(productoId);
+
+			if (producto != null) {
+				LocalDate fechaHoy = LocalDate.now();
+				LocalDate fechaVencimiento = partida.getFechaVencimiento();
+				long diasRestantes = ChronoUnit.DAYS.between(fechaHoy, fechaVencimiento);
+				producto.setTiposDescuento(TiposDescuentos.NINGUNO);
+				if (diasRestantes <= 15) { // creo que está mal la condicion habría que agregar q no de perdida
+					producto.setTiposDescuento(TiposDescuentos.DIEZ);
+					float precioConDescuento = (float) (producto.getPrecioUnidad() * 0.9); // Descuento del 10%
+					if (precioConDescuento >= producto.getCostoUnidad()) {
+						producto.setPrecioUnidad(precioConDescuento);
+						System.out.println("Se aplicó un descuento del 10% al producto " + producto.getId());
+						System.out.println("El precio ahora es de: " + producto.getPrecioUnidad());
+					} else {
+						System.out.println("No se aplicó el descuento al producto " + producto.getId() + "   "
+								+ producto.getDescripcion() + " debido a que el precio con descuento daría pérdida.");
+					}
+				} else if (diasRestantes <= 30) {
+					if (producto.getTiposDescuentos() == TiposDescuentos.DIEZ)
+						continue;
+					float precioConDescuento = (float) (producto.getPrecioUnidad() * 0.95); // Descuento del 5%
+					if (precioConDescuento >= producto.getCostoUnidad()) {
+						producto.setPrecioUnidad(precioConDescuento);
+						System.out.println("Se aplicó un descuento del 5% al producto " + producto.getId());
+						System.out.println("El precio ahora es de: " + producto.getPrecioUnidad());
+					} else {
+						System.out.println("No se aplicó el descuento al producto " + producto.getId()
+								+ " debido a que el precio con descuento daría pérdida.");
+					}
+				}
+			}
+		}
 	}
 
-	
 	public static void listarProductosConUtilidadesInferiores(float porcentaje_utilidad) {
-	    productosEnStock.values().stream()
-	        .filter(producto -> {
-	            float gananciaPorcentaje = (calcularGanancia(producto) / producto.getPrecioUnidad()) * 100;
-	            return gananciaPorcentaje < porcentaje_utilidad;
-	        })
-	        .forEach(producto -> {
-	            System.out.println("Código: " + producto.getId());
-	            System.out.println("Descripción: " + producto.getDescripcion());
-	            System.out.println("Cantidad en stock: " + producto.getStock());
-	            System.out.println("Ganancia (%): " + (calcularGanancia(producto) / producto.getPrecioUnidad()) * 100);
-	            System.out.println("-------------------------");
-	        });
+		productosEnStock.values().stream().filter(producto -> {
+			float gananciaPorcentaje = (calcularGanancia(producto) / producto.getPrecioUnidad()) * 100;
+			return gananciaPorcentaje < porcentaje_utilidad;
+		}).forEach(producto -> {
+			System.out.println("Código: " + producto.getId());
+			System.out.println("Descripción: " + producto.getDescripcion());
+			System.out.println("Cantidad en stock: " + producto.getStock());
+			System.out.println("Ganancia (%): " + (calcularGanancia(producto) / producto.getPrecioUnidad()) * 100);
+			System.out.println("-------------------------");
+		});
 	}
 
 	private static float calcularGanancia(Productos producto) {
-	    return producto.getPrecioUnidad() - producto.getCostoUnidad();
+		return producto.getPrecioUnidad() - producto.getCostoUnidad();
 	}
-	
-
-
-
-
-
-
-	
-	
 
 }

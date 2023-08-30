@@ -22,6 +22,13 @@ public class Prueba {
     	
     	
     	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
 //    	 LocalDate fechaHoy = LocalDate.now();
 //         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 //         System.out.println("Fecha de hoy: " + fechaHoy.format(formatter));

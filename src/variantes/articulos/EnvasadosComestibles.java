@@ -3,6 +3,10 @@ package variantes.articulos;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 import abstracciones.Descuento;
@@ -14,8 +18,7 @@ import tinda.Tienda;
 
 public class EnvasadosComestibles extends Envasados implements VencimientoYCalorias  {
 
-
-	
+public 	PriorityQueue<PartidasComestibles> partidasQueue =  new PriorityQueue<>(Comparator.comparing(PartidasComestibles::getFechaVencimiento));
 	private short calorias;
 	private LocalDate fechaVencimiento;
 	private TiposDescuentos tipoDescuento = TiposDescuentos.NINGUNO;
